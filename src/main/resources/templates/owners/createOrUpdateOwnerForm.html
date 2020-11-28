@@ -4,7 +4,9 @@
 <body>
 
   <h2>Owner</h2>
+  <!-- action(URL) 속성을 따로 명기하지 않으면 현재 URL에 Post 방식으로 폼을 전송한다 -->
   <form th:object="${owner}" class="form-horizontal" id="add-owner-form" method="post">
+  <!--<form th:object= "${owner}" class="form-horizontal" id="add-owner-form" method="post" th:action="@{/owners/new}">-->
     <div class="form-group has-feedback">
       <input
         th:replace="~{fragments/inputField :: input ('First Name', 'firstName', 'text')}" />

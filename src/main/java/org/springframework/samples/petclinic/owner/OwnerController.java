@@ -64,6 +64,7 @@ class OwnerController {
 
 	@PostMapping("/owners/new")
 	public String processCreationForm(@Valid Owner owner, BindingResult result) {
+		//BindingResult 아규먼트는 바인딩 시 Validation 에러를 검증, 모델에 담아준다(스프링이 기본으로 제공)
 		if (result.hasErrors()) {
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 		}
@@ -131,10 +132,13 @@ class OwnerController {
 	 * @param ownerId the ID of the owner to display
 	 * @return a ModelMap with the model attributes for the view
 	 */
+	/* GET /owners/11 */
 	@GetMapping("/owners/{ownerId}")
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
+		/* 오너 정보 */
 		Owner owner = this.owners.findById(ownerId);
+		/* 오너가 가진 펫의 방문 정보*/
 		for (Pet pet : owner.getPets()) {
 			pet.setVisitsInternal(visits.findByPetId(pet.getId()));
 		}

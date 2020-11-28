@@ -36,6 +36,11 @@ import org.springframework.transaction.annotation.Transactional;
 public interface OwnerRepository extends Repository<Owner, Integer> {
 
 	/**
+	 * 1. extends Repository<T, ID>
+	 * 보통은 그 하위에 있는 2. implements JpaRepository<T, ID>로 구현
+	 */
+
+	/**
 	 * Retrieve {@link Owner}s from the data store by last name, returning all owners
 	 * whose last name <i>starts</i> with the given name.
 	 * @param lastName Value to search for
