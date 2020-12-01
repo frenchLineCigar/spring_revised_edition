@@ -35,8 +35,11 @@ CREATE INDEX types_name ON types (name);
 
 CREATE TABLE owners (
   id         INTEGER IDENTITY PRIMARY KEY,
-  first_name VARCHAR(30),
+--   first_name VARCHAR(30),
+--   대소문자 구분없이 검색할 수 있도록 변경
+  first_name VARCHAR_IGNORECASE(30),
   last_name  VARCHAR_IGNORECASE(30),
+  age        INTEGER,
   address    VARCHAR(255),
   city       VARCHAR(80),
   telephone  VARCHAR(20)

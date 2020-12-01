@@ -1,5 +1,6 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyrig
+ * ht 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +18,7 @@ package org.springframework.samples.petclinic.owner;
 
 import java.util.Collection;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.query.Param;
@@ -36,8 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface OwnerRepository extends Repository<Owner, Integer> {
 
 	/**
-	 * 1. extends Repository<T, ID>
-	 * 보통은 그 하위에 있는 2. implements JpaRepository<T, ID>로 구현
+	 * 1. extends Repository<T, ID> 보통은 그 하위에 있는 2. implements JpaRepository<T, ID>로 구현
 	 */
 
 	/**
@@ -65,5 +66,9 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	 * @param owner the {@link Owner} to save
 	 */
 	void save(Owner owner);
+
+	@Query("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.firstName LIKE %:firstName%")
+	@Transactional(readOnly = true)
+	Collection<Owner> findByFirstName(@Param("firstName") String firstName);
 
 }

@@ -25,7 +25,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Dave Syer
  *
  */
-@SpringBootApplication(proxyBeanMethods = false)
+
+@SpringBootApplication(proxyBeanMethods = false) // "@Bean Lite Mode"
 public class PetClinicApplication {
 
 	public static void main(String[] args) {

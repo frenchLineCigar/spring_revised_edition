@@ -1,0 +1,50 @@
+# database selection
+database: h2
+#database: hsqldb
+#database: mysql
+
+spring:
+    # database init, supports mysql too
+    datasource:
+        schema: classpath*:db/${database}/schema.sql
+        data: classpath*:db/${database}/data.sql
+    # Web
+    thymeleaf:
+        mode: HTML
+        cache: false
+    # JPA
+    jpa:
+        hibernate:
+            ddl-auto: none
+        open-in-view: false
+    # Internationalization(i18n)
+    messages:
+        basename: messages/messages
+
+# Actuator
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*' #Enable All Endpoints
+
+# Logging
+logging.level:
+    org.springframework: INFO
+    org.springframework.web: DEBUG
+    #  org.springframework.context.annotation=TRACE
+    #  org.springframework.samples.petclinic: DEBUG #현재 프로젝트 로깅
+    org.hibernate.SQL: DEBUG #하이버네이트 실행 SQL 출력
+    org.hibernate.type: TRACE #SQL 실행 파라미터 출력
+    org.hibernate.type.descriptor.spi: INFO #?에 어떤 값이 들어갔는지 출력
+
+# Hibernate : DB에 날리는 모든 쿼리(DDL, DML) 출력
+#spring.jpa.properties.hibernate.show_sql: TRUE
+# Hibernate : SQL 예쁘게 포맷팅
+spring.jpa.properties.hibernate.format_sql: TRUE
+# Hibernate : 추가적인 주석 표시
+#spring.jpa.properties.hibernate.use_sql_comments: TRUE
+
+# Maximum time static resources should be cached
+spring.resources.cache.cachecontrol.max-age: 12h
+

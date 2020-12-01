@@ -28,6 +28,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
@@ -59,8 +60,21 @@ public class Owner extends Person {
 	@Digits(fraction = 0, integer = 10)
 	private String telephone;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL) // 영속성 전이 설정 (All)
 	private Set<Pet> pets;
+
+	@Column(name = "age")
+	@NotNull
+	@Digits(fraction = 0, integer = 3) // 소수점 자리수 허용하지 않고, 정수는 3자리까지 허용
+	private Integer age;
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
 
 	public String getAddress() {
 		return this.address;
@@ -99,9 +113,17 @@ public class Owner extends Person {
 
 	public List<Pet> getPets() {
 		List<Pet> sortedPets = new ArrayList<>(getPetsInternal());
+		// 오름차순 정렬
 		PropertyComparator.sort(sortedPets, new MutableSortDefinition("name", true, true));
+		// add를 이용한 변경 금지
 		return Collections.unmodifiableList(sortedPets);
 	}
+
+	/**
+	 * 참고: 얕은 복사(Shallow Copy)와 깊은 복사(Deep Copy) https://os94.tistory.com/154
+	 * https://os94.tistory.com/153
+	 * https://isooo.github.io/etc/2019/01/11/shallowCopy-vs-deepCopy.html
+	 */
 
 	public void addPet(Pet pet) {
 		if (pet.isNew()) {
@@ -143,8 +165,8 @@ public class Owner extends Person {
 		return new ToStringCreator(this)
 
 				.append("id", this.getId()).append("new", this.isNew()).append("lastName", this.getLastName())
-				.append("firstName", this.getFirstName()).append("address", this.address).append("city", this.city)
-				.append("telephone", this.telephone).toString();
+				.append("firstName", this.getFirstName()).append("age", this.age).append("address", this.address)
+				.append("city", this.city).append("telephone", this.telephone).toString();
 	}
 
 }
