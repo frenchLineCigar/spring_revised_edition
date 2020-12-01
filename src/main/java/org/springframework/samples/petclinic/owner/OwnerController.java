@@ -15,8 +15,6 @@
  */
 package org.springframework.samples.petclinic.owner;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.samples.petclinic.visit.VisitRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,11 +38,17 @@ class OwnerController {
 
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
-	@Autowired
-	private OwnerRepository owners;
+	private final OwnerRepository owners;
 
-	@Autowired
 	private VisitRepository visits;
+
+	private final PetRepository petRepository;
+
+	public OwnerController(OwnerRepository clinicService, VisitRepository visits, PetRepository petRepository) {
+		this.owners = clinicService;
+		this.visits = visits;
+		this.petRepository = petRepository;
+	}
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
