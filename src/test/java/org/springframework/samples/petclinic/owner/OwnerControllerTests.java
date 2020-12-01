@@ -62,7 +62,7 @@ class OwnerControllerTests {
 	 * @MockBean
 	 * Mock 객체를 만들어서 Bean으로 등록해주는 애노테이션
 	 * 해당 타입의 인스턴스를 스프링이 테스트 시 자동으로 만들어 Bean으로 등록해 줌
-	 * Bean 이란? 스프링이 관리하는 객체
+	 * Bean 이란? 스프링 IoC 컨테이너가 관리하는 객체
 	 */
 	@MockBean
 	private OwnerRepository owners;

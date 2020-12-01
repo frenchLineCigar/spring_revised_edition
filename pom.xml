@@ -64,10 +64,10 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
         <exclusions>
-            <exclusion>
+            <!--<exclusion>
                 <groupId>org.junit.vintage</groupId>
                 <artifactId>junit-vintage-engine</artifactId>
-            </exclusion>
+            </exclusion>-->
         </exclusions>
     </dependency>
 
@@ -119,6 +119,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
