@@ -28,10 +28,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.samples.petclinic.visit.Visit;
 import org.springframework.samples.petclinic.visit.VisitRepository;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
@@ -56,6 +58,12 @@ class OwnerControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	/**
+	 * @MockBean
+	 * Mock 객체를 만들어서 Bean으로 등록해주는 애노테이션
+	 * 해당 타입의 인스턴스를 스프링이 테스트 시 자동으로 만들어 Bean으로 등록해 줌
+	 * Bean 이란? 스프링이 관리하는 객체
+	 */
 	@MockBean
 	private OwnerRepository owners;
 
@@ -63,6 +71,23 @@ class OwnerControllerTests {
 	private VisitRepository visits;
 
 	private Owner george;
+
+	@Autowired
+	ApplicationContext applicationContext;
+
+	@Test
+	public void getBean() {
+		//애플리케이션 컨텍스트에 들어있는 모든 빈들의 이름을 가져온다
+		String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+		for (String beanName : beanDefinitionNames) {
+			System.out.println("beanName = " + beanName);
+		}
+
+		OwnerController bean = applicationContext.getBean(OwnerController.class);
+		// 애플리케이션 컨텍스트가 담고있던 OwnerController 인스턴스의 해쉬값 출력
+		System.out.println("bean = " + bean);
+		assertThat(bean).isNotNull();
+	}
 
 	@BeforeEach
 	void setup() {
