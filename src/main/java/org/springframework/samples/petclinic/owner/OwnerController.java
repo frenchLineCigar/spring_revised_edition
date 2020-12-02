@@ -21,7 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+//import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -133,23 +133,23 @@ class OwnerController {
 		}
 	}
 
-	/**
-	 * Custom handler for displaying an owner.
-	 * @param ownerId the ID of the owner to display
-	 * @return a ModelMap with the model attributes for the view
-	 */
-	/* GET /owners/11 */
-	@GetMapping("/owners/{ownerId}")
-	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
-		ModelAndView mav = new ModelAndView("owners/ownerDetails");
-		/* 오너 정보 */
-		Owner owner = this.owners.findById(ownerId);
-		/* 오너가 가진 펫의 방문 정보*/
-		for (Pet pet : owner.getPets()) {
-			pet.setVisitsInternal(visits.findByPetId(pet.getId()));
-		}
-		mav.addObject(owner);
-		return mav;
-	}
+//	/**
+//	 * Custom handler for displaying an owner.
+//	 * @param ownerId the ID of the owner to display
+//	 * @return a ModelMap with the model attributes for the view
+//	 */
+//	/* GET /owners/11 */
+//	@GetMapping("/owners/{ownerId}")
+//	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
+//		ModelAndView mav = new ModelAndView("owners/ownerDetails");
+//		/* 오너 정보 */
+//		Owner owner = this.owners.findById(ownerId);
+//		/* 오너가 가진 펫의 방문 정보*/
+//		for (Pet pet : owner.getPets()) {
+//			pet.setVisitsInternal(visits.findByPetId(pet.getId()));
+//		}
+//		mav.addObject(owner);
+//		return mav;
+//	}
 
 }
